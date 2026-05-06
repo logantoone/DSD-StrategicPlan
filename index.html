@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Davis School District Strategic Plan</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, 'Helvetica Neue', sans-serif; background: #fff; }
+
+  /* ===== NAV ===== */
+  .dsd-nav { background: #fff; border-bottom: 1px solid #ddd; }
+  .nav-utility { background: #183969; display: flex; justify-content: flex-end; align-items: center; gap: 28px; padding: 7px 20px 7px 60px; border-radius: 0 0 0 36px; margin-left: 180px; }
+  .nav-utility a { color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 0.03em; text-decoration: none; cursor: pointer; }
+  .nav-main { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px 8px 14px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .nav-logo-name { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #183969; }
+  .nav-logo-sub { font-size: 8.5px; font-weight: 600; letter-spacing: 0.3em; color: #183969; text-transform: uppercase; margin-top: 2px; }
+  .nav-actions { display: flex; align-items: center; gap: 18px; }
+  .nav-btn { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #183969; cursor: pointer; }
+  .nav-btn-box { background: #183969; color: #fff; border-radius: 3px; padding: 3px 6px; font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 3px; }
+  .hamburger { display: flex; flex-direction: column; gap: 3px; }
+  .hamburger span { display: block; width: 16px; height: 2px; background: #183969; border-radius: 1px; }
+
+  /* ===== HERO ===== */
+  .hero { background: #fff; padding: 28px 32px 0; text-align: center; }
+  .header-super { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #183969; display: block; margin-bottom: 4px; }
+  .header-title { font-size: 26px; font-weight: 900; color: #183969; display: block; margin-bottom: 10px; }
+  .header-rule { width: 88px; height: 3px; background: #ffca58; border-radius: 2px; margin: 0 auto 20px; }
+
+  /* ===== SHIELDS ===== */
+  .shields-row { display: flex; gap: 20px; justify-content: center; align-items: flex-start; height: 100px; position: relative; z-index: 2; overflow: visible; }
+  .shield-slot { position: relative; width: 130px; height: 100px; flex: 0 0 130px; overflow: visible; }
+  .shield-mover { position: absolute; top: 0; left: 0; width: 130px; height: 100px; cursor: pointer; transition: top 0.2s ease; z-index: 2; overflow: visible; }
+  .shield-mover.active { top: 20px; z-index: 3; }
+  .shield-bg { position: absolute; inset: 0; width: 130px; height: 100px; background-size: 130px 100px; background-repeat: no-repeat; background-position: center; }
+  .shield-bg.gold { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 100'%3E%3Cpath d='M18,3 Q65,1 112,3 Q127,4 127,16 L127,57 Q125,78 65,96 Q5,78 3,57 L3,16 Q3,4 18,3 Z' fill='%23ffca58'/%3E%3Cpath d='M19,5 Q65,3 111,5 Q124,6 124,17 L124,56 Q122,76 65,93 Q8,76 6,56 L6,17 Q6,7 19,5 Z' fill='%23183969'/%3E%3C/svg%3E"); }
+  .shield-bg.muted { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 100'%3E%3Cpath d='M18,3 Q65,1 112,3 Q127,4 127,16 L127,57 Q125,78 65,96 Q5,78 3,57 L3,16 Q3,4 18,3 Z' fill='%23cfcac1'/%3E%3Cpath d='M19,5 Q65,3 111,5 Q124,6 124,17 L124,56 Q122,76 65,93 Q8,76 6,56 L6,17 Q6,7 19,5 Z' fill='%23e0e0e0'/%3E%3C/svg%3E"); }
+  .shield-text { position: absolute; inset: 0; width: 130px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 14px; pointer-events: none; }
+  .sq { font-size: 7px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #cfcac1; margin-bottom: 4px; white-space: nowrap; }
+  .sm { font-size: 16px; font-weight: 900; color: #fff; white-space: nowrap; }
+  .sb { width: 18px; height: 2px; background: #ffca58; border-radius: 1px; margin-top: 5px; }
+  .sq.muted { color: #aaa; } .sm.muted { color: #888; } .sb.muted { background: #cfcac1; }
+
+  /* ===== BARS + CONTENT ===== */
+  .blue-bar { height: 4px; background: #bed2e3; width: 100%; display: block; }
+  .content-area { background: #fff; padding: 0 36px; }
+  .content-panel { display: none; } .content-panel.active { display: block; }
+
+  .about-nudge { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 12px 0 20px; border-bottom: 1px solid #e8e8e8; margin-bottom: 28px; }
+  .about-nudge-arrow { font-size: 18px; color: #ffca58; margin-bottom: 4px; }
+  .about-nudge-text { font-size: 12px; color: #bbb; }
+
+  .content-title { font-size: 28px; font-weight: 900; color: #183969; margin-bottom: 12px; }
+  .content-rule { width: 72px; height: 3px; background: #ffca58; border-radius: 2px; margin-bottom: 20px; }
+  .content-body { font-size: 13px; color: #444; line-height: 1.75; margin-bottom: 24px; }
+  .section-title { font-size: 17px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #183969; margin-bottom: 12px; }
+  .goals-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-bottom: 28px; }
+  .goal-card { display: flex; background: #bed2e3; border-radius: 0 6px 6px 0; overflow: hidden; min-height: 64px; }
+  .goal-num-bar { width: 20px; min-width: 20px; background: #183969; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #cfcac1; flex-shrink: 0; }
+  .goal-body { padding: 10px 12px; font-size: 12px; font-weight: 400; color: #222; line-height: 1.5; }
+  .ki-list { list-style: none; padding: 0; margin: 0 0 28px; }
+  .ki-list li { font-size: 13px; font-weight: 400; color: #333; line-height: 1.6; padding: 4px 0 4px 18px; position: relative; }
+  .ki-list li::before { content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: #183969; }
+  .tabbed-panel { padding-top: 28px; }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 640px) {
+
+    /* Nav — hide utility bar, simplify main row */
+    .nav-utility { display: none; }
+    .nav-main { padding: 10px 14px; }
+    .nav-logo-name { font-size: 16px; }
+    .nav-logo-sub { font-size: 7px; }
+    .nav-actions { gap: 10px; }
+    .nav-btn-box { font-size: 9px; padding: 2px 5px; }
+
+    /* Hero */
+    .hero { padding: 20px 16px 0; }
+    .header-title { font-size: 20px; }
+    .header-rule { width: 60px; margin-bottom: 16px; }
+
+    /* Shields — stack vertically, full width buttons */
+    .shields-row {
+      flex-direction: column;
+      height: auto;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 16px;
+    }
+    .shield-slot {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      flex: none;
+    }
+    /* On mobile shields become horizontal pill buttons */
+    .shield-mover {
+      position: relative;
+      top: auto !important;
+      left: auto;
+      width: 100%;
+      height: 52px;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .shield-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 52px;
+      background-size: cover;
+      background-image: none !important;
+      background-color: #183969;
+      border-radius: 6px;
+    }
+    .shield-bg.gold { background-color: #183969; border: 2px solid #ffca58; }
+    .shield-bg.muted { background-color: #e0e0e0; border: 2px solid #cfcac1; }
+    .shield-text {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: 52px;
+      flex-direction: row;
+      justify-content: center;
+      gap: 6px;
+      padding-bottom: 0;
+    }
+    .sq { font-size: 9px; margin-bottom: 0; white-space: nowrap; }
+    .sm { font-size: 18px; }
+    .sb { display: none; }
+
+    /* Content */
+    .content-area { padding: 0 16px; }
+    .content-title { font-size: 22px; }
+    .content-body { font-size: 13px; }
+    .section-title { font-size: 15px; }
+
+    /* Goals — single column on mobile */
+    .goals-grid { grid-template-columns: 1fr; }
+
+    .ki-list li { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="dsd-nav">
+  <div class="nav-utility">
+    <a>MyDSD</a><a>Quick Links</a><a>School Board</a><a>Work In Davis</a><a>&#128269;</a>
+  </div>
+  <div class="nav-main">
+    <div class="nav-logo">
+      <svg width="58" height="50" viewBox="0 0 58 50" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5,42 L18,18 L26,28 L32,16 L44,42 Z" fill="#183969"/>
+        <path d="M32,16 L28,22 L36,22 Z" fill="#bed2e3"/>
+        <rect x="2" y="44" width="54" height="3" rx="1" fill="#183969"/>
+        <rect x="2" y="39" width="46" height="2.5" rx="1" fill="#183969"/>
+        <rect x="2" y="34" width="38" height="2.5" rx="1" fill="#183969"/>
+      </svg>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Davis School District</span>
+        <span class="nav-logo-sub">Learning First</span>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <div class="nav-btn"><div class="hamburger"><span></span><span></span><span></span></div> MENU</div>
+      <div class="nav-btn"><div class="nav-btn-box">SCHOOLS &#8964;</div></div>
+      <div class="nav-btn"><div class="nav-btn-box">TRANSLATE &#8964;</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <span class="header-super">Davis School District</span>
+  <span class="header-title">Strategic Plan</span>
+  <div class="header-rule"></div>
+  <div class="shields-row">
+    <div class="shield-slot">
+      <div class="shield-mover" id="btn-0" onclick="selectShield(0)">
+        <div class="shield-bg gold" id="bg-0"></div>
+        <div class="shield-text"><span class="sq" id="q-0">Academic</span><span class="sm" id="m-0">Achievement</span><div class="sb" id="bar-0"></div></div>
+      </div>
+    </div>
+    <div class="shield-slot">
+      <div class="shield-mover" id="btn-1" onclick="selectShield(1)">
+        <div class="shield-bg gold" id="bg-1"></div>
+        <div class="shield-text"><span class="sq" id="q-1">Community</span><span class="sm" id="m-1">Connection</span><div class="sb" id="bar-1"></div></div>
+      </div>
+    </div>
+    <div class="shield-slot">
+      <div class="shield-mover" id="btn-2" onclick="selectShield(2)">
+        <div class="shield-bg gold" id="bg-2"></div>
+        <div class="shield-text"><span class="sq" id="q-2">Operational</span><span class="sm" id="m-2">Excellence</span><div class="sb" id="bar-2"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="blue-bar"></div>
+
+<div class="content-area">
+  <div class="content-panel active" id="panel-none">
+    <div class="about-nudge">
+      <div class="about-nudge-arrow">&#8593;</div>
+      <div class="about-nudge-text">Select a focus area to view details</div>
+    </div>
+    <div class="content-title">About the Strategic Plan</div>
+    <div class="content-rule"></div>
+    <div class="content-body">The Davis School District Strategic Plan serves as a guide for the district's priorities and continuous improvement efforts. Organized around three core focus areas—Academic Achievement, Community Connection, and Operational Excellence—the plan identifies the philosophies, goals, and key indicators that support student success and organizational effectiveness. The Board of Education uses the strategic plan to align policies, resources, programs, and accountability measures while providing a shared direction for the work of the district.</div>
+  </div>
+
+  <div class="content-panel" id="panel-0">
+    <div class="tabbed-panel">
+      <div class="content-title">Academic Achievement</div>
+      <div class="content-rule"></div>
+      <div class="content-body">Learning is the foundation of everything we do. Effective educators provide powerful learning opportunities that challenge, support, and inspire all students. As students receive effective instruction, they acquire a comprehensive body of academic knowledge and develop skills essential for success in their future education, careers, community, and life.</div>
+      <div class="section-title">Supporting Goals</div>
+      <div class="goals-grid">
+        <div class="goal-card"><div class="goal-num-bar">1</div><div class="goal-body">Promote high-quality instruction in every setting for every student</div></div>
+        <div class="goal-card"><div class="goal-num-bar">2</div><div class="goal-body">Support responsible use of digital tools</div></div>
+        <div class="goal-card"><div class="goal-num-bar">3</div><div class="goal-body">Provide high-quality intervention and enrichment to meet the learning needs of all students</div></div>
+        <div class="goal-card"><div class="goal-num-bar">4</div><div class="goal-body">Implement evidence-based curriculum effectively in every classroom</div></div>
+        <div class="goal-card"><div class="goal-num-bar">5</div><div class="goal-body">Support students in meeting grade-level academic standards and graduating with the knowledge and skills needed for success in college, careers, community, and life</div></div>
+        <div class="goal-card"><div class="goal-num-bar">6</div><div class="goal-body">Establish systems, structures, and supports that promote student engagement</div></div>
+      </div>
+      <div class="section-title">Key Indicators</div>
+      <ul class="ki-list">
+        <li>Graduation rates</li>
+        <li>College and career readiness</li>
+        <li>Literacy outcomes</li>
+        <li>Academic proficiency and growth</li>
+        <li>Attendance rates</li>
+        <li>Student behavior</li>
+        <li>Program evaluation results</li>
+        <li>Learning experience data</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-panel" id="panel-1">
+    <div class="tabbed-panel">
+      <div class="content-title">Community Connection</div>
+      <div class="content-rule"></div>
+      <div class="content-body">As the center of our communities, DSD schools provide a foundation of belonging and relationships that are essential to academic success. Our schools are welcoming; students, teachers, parents, and staff feel safe, supported, and connected. School staff foster strong, caring relationships with students, promote the safe sharing of ideas, and work collaboratively with parents and administrators to help each student succeed. We continue to treat all with respect and civility while building trust within our school communities.</div>
+      <div class="section-title">Supporting Goals</div>
+      <div class="goals-grid">
+        <div class="goal-card"><div class="goal-num-bar">1</div><div class="goal-body">Foster connections between every student and a caring staff member so each feels included, valued, and dignified in their daily school experience</div></div>
+        <div class="goal-card"><div class="goal-num-bar">2</div><div class="goal-body">Provide students access to leadership opportunities and support full participation in school learning and activities within safe environments</div></div>
+        <div class="goal-card"><div class="goal-num-bar">3</div><div class="goal-body">Ensure parents feel welcomed, empowered, and comfortable engaging with school leadership as valued members of the school community</div></div>
+        <div class="goal-card"><div class="goal-num-bar">4</div><div class="goal-body">Advance student and staff safety, belonging, and connection</div></div>
+        <div class="goal-card"><div class="goal-num-bar">5</div><div class="goal-body">Provide varied opportunities for students to connect through participation in clubs, athletic teams, and extracurricular activities</div></div>
+        <div class="goal-card"><div class="goal-num-bar">6</div><div class="goal-body">Strengthen collaborative relationships that support every student's academic growth and success</div></div>
+      </div>
+      <div class="section-title">Key Indicators</div>
+      <ul class="ki-list">
+        <li>Effectiveness Assessment Report data</li>
+        <li>Participation in clubs, athletics, and extracurricular activities</li>
+        <li>Community focus group feedback</li>
+        <li>Community Council and PTA feedback</li>
+        <li>Graduation rates, attendance rates, and academic performance data</li>
+        <li>Student and staff retention rates</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-panel" id="panel-2">
+    <div class="tabbed-panel">
+      <div class="content-title">Operational Excellence</div>
+      <div class="content-rule"></div>
+      <div class="content-body">Excellence is achieved through intentional systems that equip our employees with the training, tools, and support needed to serve students at the highest level. We prioritize clear communication and transparency to build trust and foster a shared responsibility for success. We demonstrate responsible use of public resources through sound decision-making and fiscal stewardship. Well-designed academic, behavioral, and operational systems reduce barriers and allow employees and students to focus on learning, growth, and service. We are committed to physical, emotional, and digital safety, creating sustainable excellence in environments where students and employees can thrive.</div>
+      <div class="section-title">Supporting Goals</div>
+      <div class="goals-grid">
+        <div class="goal-card"><div class="goal-num-bar">1</div><div class="goal-body">Maintain a comprehensive system of tools, training, and coaching that develops employee expertise and supports high performance across roles</div></div>
+        <div class="goal-card"><div class="goal-num-bar">2</div><div class="goal-body">Support employees in delivering effective academic and behavioral strategies that directly impact student achievement</div></div>
+        <div class="goal-card"><div class="goal-num-bar">3</div><div class="goal-body">Promote communication that is regular, transparent, appropriate, and grounded in integrity with stakeholders</div></div>
+        <div class="goal-card"><div class="goal-num-bar">4</div><div class="goal-body">Recognize excellence and proactively share the great work of employees</div></div>
+        <div class="goal-card"><div class="goal-num-bar">5</div><div class="goal-body">Advance systems of operational excellence through informed decision-making, fiscal responsibility, and wise stewardship of public resources</div></div>
+        <div class="goal-card"><div class="goal-num-bar">6</div><div class="goal-body">Maintain a safe and secure environment that protects the physical, emotional, and digital well-being of all students and employees</div></div>
+      </div>
+      <div class="section-title">Key Indicators</div>
+      <ul class="ki-list">
+        <li>Employee training and professional development participation</li>
+        <li>Professional development offerings in professionalism, fiscal responsibility, compliance, academics, culture, and behavior</li>
+        <li>Curriculum adoption and implementation processes</li>
+        <li>Allocation of personnel, materials, and facility resources</li>
+        <li>Stakeholder communication across multiple platforms</li>
+        <li>Policy alignment and regular updates</li>
+        <li>Stakeholder feedback systems and responsiveness</li>
+        <li>Recognition of employee excellence</li>
+        <li>Annual audit reports</li>
+        <li>Financial transparency and balanced budgeting</li>
+        <li>Alignment of fiscal resources to strategic goals</li>
+        <li>Culture and climate data</li>
+        <li>Student digital safety systems and data</li>
+        <li>Physical safety systems and emergency response protocols</li>
+        <li>Employee evaluation system data</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="blue-bar"></div>
+
+<script>
+  var active = -1;
+  function setShield(i, isActive, isMuted) {
+    document.getElementById('bg-' + i).className = 'shield-bg ' + (isMuted ? 'muted' : 'gold');
+    document.getElementById('q-' + i).className = 'sq' + (isMuted ? ' muted' : '');
+    document.getElementById('m-' + i).className = 'sm' + (isMuted ? ' muted' : '');
+    document.getElementById('bar-' + i).className = 'sb' + (isMuted ? ' muted' : '');
+    document.getElementById('btn-' + i).className = 'shield-mover' + (isActive ? ' active' : '');
+  }
+  function selectShield(idx) {
+    ['panel-none','panel-0','panel-1','panel-2'].forEach(function(p){ document.getElementById(p).classList.remove('active'); });
+    if (active === idx) {
+      active = -1;
+      for (var i = 0; i < 3; i++) setShield(i, false, false);
+      document.getElementById('panel-none').classList.add('active');
+    } else {
+      active = idx;
+      for (var i = 0; i < 3; i++) setShield(i, i === idx, i !== idx);
+      document.getElementById('panel-' + idx).classList.add('active');
+    }
+  }
+</script>
+</body>
+</html>
