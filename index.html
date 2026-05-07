@@ -8,20 +8,29 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, 'Helvetica Neue', sans-serif; background: #fff; }
 
-  /* ===== NAV ===== */
-  .dsd-nav { background: #fff; border-bottom: 1px solid #ddd; }
-  .nav-utility { background: #183969; display: flex; justify-content: flex-end; align-items: center; gap: 28px; padding: 7px 20px 7px 60px; border-radius: 0 0 0 36px; margin-left: 180px; }
-  .nav-utility a { color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 0.03em; text-decoration: none; cursor: pointer; }
-  .nav-main { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px 8px 14px; }
-  .nav-logo { display: flex; align-items: center; gap: 10px; }
-  .nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
-  .nav-logo-name { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #183969; }
-  .nav-logo-sub { font-size: 8.5px; font-weight: 600; letter-spacing: 0.3em; color: #183969; text-transform: uppercase; margin-top: 2px; }
-  .nav-actions { display: flex; align-items: center; gap: 18px; }
-  .nav-btn { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #183969; cursor: pointer; }
-  .nav-btn-box { background: #183969; color: #fff; border-radius: 3px; padding: 3px 6px; font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 3px; }
-  .hamburger { display: flex; flex-direction: column; gap: 3px; }
-  .hamburger span { display: block; width: 16px; height: 2px; background: #183969; border-radius: 1px; }
+  /* ===== FEEDBACK BANNER ===== */
+  .feedback-banner {
+    background: #183969;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .feedback-btn {
+    display: inline-block;
+    background: #ffca58;
+    color: #183969;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .feedback-btn:hover { background: #f0b830; }
 
   /* ===== HERO ===== */
   .hero { background: #fff; padding: 28px 32px 0; text-align: center; }
@@ -67,112 +76,31 @@
 
   /* ===== MOBILE ===== */
   @media (max-width: 640px) {
-
-    /* Nav — hide utility bar, simplify main row */
-    .nav-utility { display: none; }
-    .nav-main { padding: 10px 14px; }
-    .nav-logo-name { font-size: 16px; }
-    .nav-logo-sub { font-size: 7px; }
-    .nav-actions { gap: 10px; }
-    .nav-btn-box { font-size: 9px; padding: 2px 5px; }
-
-    /* Hero */
+    .feedback-banner { justify-content: center; padding: 8px 16px; }
     .hero { padding: 20px 16px 0; }
     .header-title { font-size: 20px; }
     .header-rule { width: 60px; margin-bottom: 16px; }
-
-    /* Shields — stack vertically, full width buttons */
-    .shields-row {
-      flex-direction: column;
-      height: auto;
-      align-items: center;
-      gap: 10px;
-      padding-bottom: 16px;
-    }
-    .shield-slot {
-      position: relative;
-      width: 100%;
-      max-width: 320px;
-      height: auto;
-      flex: none;
-    }
-    /* On mobile shields become horizontal pill buttons */
-    .shield-mover {
-      position: relative;
-      top: auto !important;
-      left: auto;
-      width: 100%;
-      height: 52px;
-      border-radius: 6px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-    }
-    .shield-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 52px;
-      background-size: cover;
-      background-image: none !important;
-      background-color: #183969;
-      border-radius: 6px;
-    }
+    .shields-row { flex-direction: column; height: auto; align-items: center; gap: 10px; padding-bottom: 16px; }
+    .shield-slot { position: relative; width: 100%; max-width: 320px; height: auto; flex: none; }
+    .shield-mover { position: relative; top: auto !important; left: auto; width: 100%; height: 52px; border-radius: 6px; overflow: hidden; display: flex; align-items: center; }
+    .shield-bg { position: absolute; inset: 0; width: 100%; height: 52px; background-size: cover; background-image: none !important; background-color: #183969; border-radius: 6px; }
     .shield-bg.gold { background-color: #183969; border: 2px solid #ffca58; }
     .shield-bg.muted { background-color: #e0e0e0; border: 2px solid #cfcac1; }
-    .shield-text {
-      position: relative;
-      inset: auto;
-      width: 100%;
-      height: 52px;
-      flex-direction: row;
-      justify-content: center;
-      gap: 6px;
-      padding-bottom: 0;
-    }
+    .shield-text { position: relative; inset: auto; width: 100%; height: 52px; flex-direction: row; justify-content: center; gap: 6px; padding-bottom: 0; }
     .sq { font-size: 9px; margin-bottom: 0; white-space: nowrap; }
     .sm { font-size: 18px; }
     .sb { display: none; }
-
-    /* Content */
     .content-area { padding: 0 16px; }
     .content-title { font-size: 22px; }
-    .content-body { font-size: 13px; }
     .section-title { font-size: 15px; }
-
-    /* Goals — single column on mobile */
     .goals-grid { grid-template-columns: 1fr; }
-
-    .ki-list li { font-size: 13px; }
   }
 </style>
 </head>
 <body>
 
-<div class="dsd-nav">
-  <div class="nav-utility">
-    <a>MyDSD</a><a>Quick Links</a><a>School Board</a><a>Work In Davis</a><a>&#128269;</a>
-  </div>
-  <div class="nav-main">
-    <div class="nav-logo">
-      <svg width="58" height="50" viewBox="0 0 58 50" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5,42 L18,18 L26,28 L32,16 L44,42 Z" fill="#183969"/>
-        <path d="M32,16 L28,22 L36,22 Z" fill="#bed2e3"/>
-        <rect x="2" y="44" width="54" height="3" rx="1" fill="#183969"/>
-        <rect x="2" y="39" width="46" height="2.5" rx="1" fill="#183969"/>
-        <rect x="2" y="34" width="38" height="2.5" rx="1" fill="#183969"/>
-      </svg>
-      <div class="nav-logo-text">
-        <span class="nav-logo-name">Davis School District</span>
-        <span class="nav-logo-sub">Learning First</span>
-      </div>
-    </div>
-    <div class="nav-actions">
-      <div class="nav-btn"><div class="hamburger"><span></span><span></span><span></span></div> MENU</div>
-      <div class="nav-btn"><div class="nav-btn-box">SCHOOLS &#8964;</div></div>
-      <div class="nav-btn"><div class="nav-btn-box">TRANSLATE &#8964;</div></div>
-    </div>
-  </div>
+<div class="feedback-banner">
+  <a class="feedback-btn" href="https://forms.cloud.microsoft/r/jBpfFXR2WK" target="_blank" rel="noopener noreferrer">Give Feedback</a>
 </div>
 
 <div class="hero">
